@@ -29,7 +29,7 @@
             <section class="section_post">
 
                 <!-- <div class="bloc_blog" > -->
-                <div class="bloc_blog" v-for="p in posted.post" :key="p">
+                <div class="bloc_blog" v-for="p in posted.pt" :key="p">
 
                     <div class="section_post_selected" v-if="postComponent === true && p._id == PostIdSelected">
                         <!-- <sec @close="close" :data="postEdit" /> -->
@@ -135,8 +135,8 @@ onBeforeUnmount(() => {
     console.log('before unmount')
 })
 //  const p = defineProps(['post'])
-  const posted = defineProps(['post'])
-
+  const posted = defineProps(['pt'])
+console.log("POSTED THEME",posted);
 
 
 // ***** ASIDE POST READ ******

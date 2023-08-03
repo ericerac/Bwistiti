@@ -2,12 +2,13 @@
     <div class="container-home">
         <div class="b_t">
             
-            <themePost :p="interThemes"/>
+            <themePost :p="interThemes" @openTheme="openTheme"/>
         </div>
-        <ActuPost :post="orderView"/>
+        <ActuPost :post="orderView" @post_select="open_post"/>
 <btn_add v-if="auth" @open_add="add_post = !add_post" />
-<PostSelected v-if="postSelect" />
-<postsVue v-if="!postSelect" :post="post"/>
+<PostSelected v-if="postSelect" :data="postSelected" @close="postSelect = !postSelect"/>
+<postTheme v-if="postThemeComponent" :pt="postThemeSelected" />
+<postsVue v-if=" postSelect == false  && postThemeComponent == false" :post="post" @post_select="open_post"/>
 <!-- <postsVue  v-for="p in post" :key="p" ref="scrollComponent"/> -->
 <newPost v-if="add_post" @open_add="add_post = !add_post" :p="interThemes"/>
 </div>
@@ -20,6 +21,7 @@ import { useLogUserStore } from "@/store/login";
 import{ ref } from "vue"
 import { useCookies } from "vue3-cookies";
 import StringParse from "../composable/jsonStringParse"
+import FilterId from "../composable/filterId"
 
 const { cookies } = useCookies();
 const postData = usePostStore();
@@ -31,7 +33,6 @@ const themes = ref([])
 
 let orderView = ""
 
-
 let auth = ref("")
 const pst = async () => {
     // await geoLoc()
@@ -42,8 +43,9 @@ const pst = async () => {
 pst()
 // -------- WATCH POST -----------
 watch(post, (n, o) => {
+    // STRINGIFY PARSE *********************** A CHANGER
 let p = StringParse(post.value)
-// console.log("P INDEX T THEME LOOP",p);
+ console.log("P INDEX T THEME LOOP",p);
     for(let t in p.parsi){
         themes.value.push(p.parsi[t].theme)
     }
@@ -62,7 +64,24 @@ interThemes.value.push([...new Set(n)]);
 
 
 });
+// ----------- OPEN THEME SELECED ------------
+ let postThemeSelected =ref("")
+ let postThemeComponent = ref(false)
+const openTheme = ((t) =>{
+console.log("THEME SELECTED INDEX",t);
+if(t == "All theme"){
+    postThemeComponent.value = false
+    postSelect.value = false
+   
+return
+}
+let themePosted =  StringParse(post.value).parsi
+postThemeSelected.value = themePosted.filter(x => x.theme == t)
+console.log("themePost",postThemeSelected);
+postThemeComponent.value = true
 
+})
+// ----------- OPEN POST SELECED ------------
 
 let postSelect = ref(false);
 let add_post = ref(false)
@@ -76,6 +95,17 @@ console.log("BTN ADD POST INDEX", add_post);
 const open = () => {
 console.log("OPEN INDEX");
 }
+let postComponent = ref(false);
+let postEdit = ("")
+let postSelected = ref("");
+
+const open_post = ((id) => {
+    
+     const IdPostSelected = FilterId(id)
+     postSelected.value = StringParse(IdPostSelected).parsi
+     console.log("POST SELECTED", StringParse(IdPostSelected).parsi);
+     postSelect.value = true
+})
 
 </script>
 
