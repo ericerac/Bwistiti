@@ -7,7 +7,7 @@
         <ActuPost :post="orderView" @post_select="open_post"/>
 <btn_add v-if="auth" @open_add="add_post = !add_post" />
 <PostSelected v-if="postSelect" :data="postSelected" @close="postSelect = !postSelect"/>
-<postTheme v-if="postThemeComponent" :pt="postThemeSelected" />
+<postTheme v-if="postThemeComponent" :pt="postThemeSelected" @post_select="open_post"/>
 <postsVue v-if=" postSelect == false  && postThemeComponent == false" :post="post" @post_select="open_post"/>
 <!-- <postsVue  v-for="p in post" :key="p" ref="scrollComponent"/> -->
 <newPost v-if="add_post" @open_add="add_post = !add_post" :p="interThemes"/>

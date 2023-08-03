@@ -6,7 +6,7 @@
         <!-- <div class="title"> -->
         <!-- </div> -->
 
-        <div class="post-actu"  v-for="p in post_read" :key="p._id" >
+        <div class="post-actu"  v-for="p in post_read" :key="p._id" @click="$emit('post_select',p._id)">
             <h2>{{p.title_1}}</h2>
             <p class="text_actu" >{{ p.p_1 }}</p>
         </div>
