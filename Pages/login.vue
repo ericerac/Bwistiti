@@ -78,7 +78,10 @@ const sendLogin = ((e) => {
     }
    
    auth = loginUser(userData)
-
+if(auth){
+    console.log("AUTH OK",auth);
+    navigateTo("/admin")
+}
     console.log("SENDING MESSAGE", passW, email);
     // ErrorMessage.value= "mot de passe non valide"
 

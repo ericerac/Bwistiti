@@ -80,13 +80,15 @@ const getShortList = (shortListSize) =>{
 
 .bloc_master{
     margin:0 auto;
+    width:90%;
    
 }
 .container {
-    display: grid;
+    display: flex;
    margin:0 auto;
-    grid-template-columns: auto auto ;
-   
+   flex-direction: row;
+   justify-content: space-evenly;
+   width:90%;
     gap: 10px;
     text-align: center;
 background-color: rgba(240, 248, 255,.2);
@@ -94,24 +96,14 @@ background-color: rgba(240, 248, 255,.2);
     height: 200px;
     margin: 20px auto;
 }
-.bloc_theme{
-    width:90%;
-    height:200px;
-    display: grid;
-  grid-template-columns: auto auto ;
-  column-gap: 10px;
-  row-gap: 15px;
-    margin:0 auto;
-    border:2px solid red;
-    overflow: hidden;
-}
+
 
 h1{
     text-align: center;
 }
 .post-actu {
     
-   width:80%;
+   width:50%;
 }
 /* .post_actu::after{
     content:"";

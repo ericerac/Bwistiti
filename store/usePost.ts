@@ -5,6 +5,7 @@ import axios from "axios";
 import Date from "../utils/Date.js"
 import { defineStore } from "pinia";
  import { useCookies } from "vue3-cookies";
+import { log } from "util";
 
 //  const instance = axios.create({
 //   //baseURL: "http://49.13.3.226/",
@@ -116,6 +117,7 @@ export const usePostStore = defineStore('usePostStore', {
     },
 
     async countPost(data: {}) {
+console.log("COUNT POST",data);
 
       return new Promise((resolve, reject) => {
         instance

@@ -23,6 +23,7 @@
 } */
 nav {
   width: 80%;
+  height:50px;
   margin: 0 auto;
   background: #fff;
   background:transparent;

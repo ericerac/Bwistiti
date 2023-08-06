@@ -3,23 +3,27 @@
 // import { useLoginStore } from "../store/loginPost"
 import { storeToRefs } from 'pinia';
 import { usePostStore } from "@/store/usePost"
-const postData = usePostStore();
-const { getPageData } = postData
+import { openedPost, closeTimeOut } from "@/composable/openedPost"
+import FilterId from "@/composable/filterId"
+import  jsonStringParse  from '@/composable/jsonStringParse';
 
- const post = postData.post_Data;
+// const postData = usePostStore();
+// const { getPageData } = postData
+
+//  const post = postData.post_Data;
  
- const data = defineProps(['data'])
-  console.log("DATA", data);
+//   const  data = defineProps(['data'])
+   const data= defineProps(['data'])
+ 
 
-//   let postEdit = useState("postEdit");
-
+//    openedPost(id)
 </script>
 
 
 
 <template>
    
-    <div class="bloc" @click="$emit('close')" v-for="(d, key) in data" :key="key">
+    <div class="bloc" @click="$emit('close')" v-for="(d, key) in data " :key="key">
         <div class="bloc_left">
             <img :src="d.imageUrl" alt="">
         </div>

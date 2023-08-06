@@ -13,7 +13,7 @@
   min-width:100vw;
   min-height: 100vh;
   background-image: url("./assets/image/white-cloud-blue-sky.jpg");
-  
+  background-repeat: repeat;
   
 }
 </style>

@@ -1,12 +1,6 @@
 <template>
-    <!-- <div class="bloc_total" :class="{bloc_fixed : postComponent}"> -->
     <div class="bloc_total">
 
-        <!-- <div class="bloc">
-            <LazyHeaderInfo />
-        </div> -->
-
-        <!-- <NewPost v-if="newPost == true" @closePost="addPost" :themes ="themes"/> -->
         <button @click="addPost" v-if="auth">Add Post</button>
         <div class="modal">
             <!-- <Transition name="fade">
@@ -14,41 +8,42 @@
             </Transition> -->
         </div>
 
-       
+
         <!-- <loader v-if="loader" /> -->
         <form>
 
-<!-- <br><br>
-<input type="button" onclick="changeText()" value="Set text of selected option"> -->
-</form>
-        <!-- <div class="themes" v-for="t in themes" :key="t">
-            <span>{{ t }}</span>
-        </div> -->
+
+        </form>
+
         <main>
 
             <section class="section_post">
 
-                <!-- <div class="bloc_blog" > -->
+
                 <div class="bloc_blog" v-for="p in posted.post" :key="p">
 
-                    <div class="section_post_selected" v-if="postComponent === true && p._id == PostIdSelected">
-                        <!-- <sec @close="close" :data="postEdit" /> -->
-                    </div>
+
 
                     <div class="bloc_total" v-if="postComponent == false || p._id != PostIdSelected">
                         <div class="img_blog">
                             <img :src="p.imageUrl" :alt="p.description">
-                            <!-- <img src="../assets/images/img_watt.jpeg" alt=""> -->
+
                         </div>
-                        <!-- {{ datePosted(p.createdAt) }} -->
                         <div class="text_blog">
-                            <h2>
-                                {{ p.title_1 }}
-                            </h2>
-                            <p class="paragraf1">
-                                {{ p.p_1 }}
-                            </p>
-                            <div class="paraf">
+                            <div class="head_post">
+                                <h2>
+                                    {{ p.title_1 }}
+                                </h2>
+                                <em class="time_to_read" v-if="read(p._id) != ''"> temps de lectura: {{ read(p._id) }} </em>
+                            </div>
+                                <p class="paragraf1">
+                                    {{ p.p_1 }}
+                                </p>
+                                <span @click="$emit('post_select', p._id)" v-if="p.p_1.length > 200"><em>lire la suite</em>
+                                    <br>
+                                </span>
+                            
+                            <!-- <div class="paraf">
                                 <h3>
                                     {{ p.title_2 }}
                                 </h3>
@@ -65,7 +60,7 @@
                                     {{ p.p_3 }}
                                 </p>
                             </div>
-                            <!-- v-if="timeToRead(p._id) != ''" -->
+
                             <div class="paraf">
                                 <h3>
                                     {{ p.title_4 }}
@@ -82,29 +77,26 @@
                                 <p>
                                     {{ p.p_5 }}
                                 </p>
-                            </div>
+                            </div>-->
                         </div>
-                        <div class="text_limks">
+                        <!-- <div class="text_limks">
                             <p class="title-link">
                                 {{ Text_link_1 }}
                             </p>
                             <p class="text_link">
                                 {{ link1 }}
                             </p>
-                        </div>
-                        <span @click="$emit('post_select',p._id)" v-if="p.p_1.length > 200"><em>lire la suite</em> <br>
-                            <em class="time_to_read" v-if="read(p._id) != ''"> {{ read(p._id) }} de lectura
-                            </em>
-                        </span>
+                        </div>  -->
+
                     </div>
+                    <!-- <div class="b_info_post">
+
+
+                    </div> -->
 
 
                 </div>
-
             </section>
-            
-
-      
 
         </main>
     </div>
@@ -113,20 +105,20 @@
 <!-- <script setup lang="ts"> -->
 <script setup >
 
- import { ref, watch, computed, onMounted, onUnmounted } from "vue";
- import { storeToRefs } from "pinia"
+import { ref, watch, computed, onMounted, onUnmounted } from "vue";
+import { storeToRefs } from "pinia"
 
-  import { usePostStore } from "@/store/usePost";
- import { useImgStore } from "@/store/useImg";
- import { useLogUserStore } from "@/store/login";
- import { useNewPostStore } from "@/store/useNewPost";
- import filter from "@/composable/filterId"
- import { openedPost, closeTimeOut } from "@/composable/openedPost"
- import { useCookies } from "vue3-cookies";
- 
- import { geoLoc } from "../composable/geoloc"
- import { timeToRead } from "../composable/timeToRead"
- import jsonStringParse from "../composable/jsonStringParse"
+import { usePostStore } from "@/store/usePost";
+import { useImgStore } from "@/store/useImg";
+import { useLogUserStore } from "@/store/login";
+import { useNewPostStore } from "@/store/useNewPost";
+import filter from "@/composable/filterId"
+import { openedPost, closeTimeOut } from "@/composable/openedPost"
+import { useCookies } from "vue3-cookies";
+
+import { geoLoc } from "../composable/geoloc"
+import { timeToRead } from "../composable/timeToRead"
+import jsonStringParse from "../composable/jsonStringParse"
 // import { posted } from "../composable/postDate"
 // import StringParse from "../composable/jsonStringParse"
 
@@ -135,7 +127,7 @@ onBeforeUnmount(() => {
     console.log('before unmount')
 })
 //  const p = defineProps(['post'])
-  const posted = defineProps(['post'])
+const posted = defineProps(['post'])
 
 
 
@@ -205,7 +197,7 @@ const datePosted = ((d) => {
 //     }
 // scroll()
 if (process.browser) {
-  console.log('The window object:', window)
+    console.log('The window object:', window)
 }
 </script>
 
@@ -224,11 +216,14 @@ main {
     margin-bottom: 150px;
 }
 
-.bloc {
+.bloc_total {
+    width: 100%;
+    padding-bottom: 20px;
     display: flex;
     flex-direction: column;
-    background: transparent;
+    justify-content: center;
 }
+
 
 span {
     text-transform: lowercase;
@@ -244,27 +239,38 @@ span {
     flex-direction: column;
 }
 
-.section_post_selected {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-}
-.paragraf1{
+
+.paragraf1 {
+
+   
+    overflow: hidden;
     
     display: -webkit-box;
-    /* text-overflow: ellipsis; */
-    /* white-space: nowrap; */
-    overflow: hidden; 
+    -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
-    -webkit-box-orient:vertical ;
- 
+    overflow: hidden;
 }
+
+.b_info_post {
+    width: 90%;
+}
+
 @media screen and (min-width: 768px) and (max-height:500px) {
     span {
         margin-top: 5px
     }
+
+    .bloc_total {
+
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .head_post{
+        margin:30px auto
+    }
+    section h2 {
+    margin-bottom: 0px;
+}
 }
 
 @media screen and (min-width: 768px) and (max-height:500px) {
@@ -298,13 +304,14 @@ main {
 
 .bloc_blog {
     position: relative;
-    width: 100%;
+    width: 95%;
     height: auto;
     display: flex;
     flex-direction: column;
     margin: 15px auto;
     background: white;
     justify-content: space-between;
+    overflow: hidden;
     align-items: center;
     box-shadow: -3px 3px 3px rgba(203, 116, 1, .5);
 }
@@ -327,6 +334,7 @@ main {
     width: 100%;
     height: auto;
     max-height: 250px;
+
 }
 
 .img_blog img {
@@ -338,17 +346,20 @@ main {
 
 .text_blog {
     width: 90%;
-    margin: 20px auto;
     padding: 5px 10px;
 }
 
 .text_blog {
     margin: 20px auto 10px;
     position: relative;
-    display: -webkit-box;
+    /* display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 5;
-    overflow: hidden;
+    overflow: hidden; */
+    height:inherit;
+    flex-direction: column;
+    justify-content: space-around;
+    border:1px solid red;
 }
 
 @media screen and (min-width: 768px) and (max-height:500px) {
@@ -373,6 +384,9 @@ main {
     .text_blog {
         width: 50%;
         margin: 0 20px;
+    }
+    .paragraf1{
+margin-bottom:20px
     }
 }
 
@@ -437,4 +451,5 @@ section h2 {
 .fade-leave-to {
     transform: translateX(-200px);
     opacity: 0;
-}</style>
+}
+</style>

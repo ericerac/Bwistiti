@@ -5,13 +5,15 @@ const { cookies } = useCookies();
 var upTime =""
 export const openedPost = ((data)=>{
   let loc = cookies.get("g'e''o")
+ 
   const { countPost } = usePostStore()
     let PostOpen={
-      id:data.id,
+      id:data,
       opened:"true",
       read:"false",
       loc:loc
     }
+    // console.log("OPENED POST DATA ",PostOpen);
     countPost(PostOpen)
     //  console.log("REAL TIME OPENEDPOST FUNCTION",data.time);
      let timeOut = data.time*1000*60
@@ -20,9 +22,10 @@ export const openedPost = ((data)=>{
      upTime = setTimeout(() => {
         // console.log("Delayed for TIME second.");
         let PostRead={
-          id:data.id,
+          id:data,
           opened:"false",
-          read:"true"
+          read:"true",
+          
         }
         countPost(PostRead)
       }, timeOut);
